@@ -3,4 +3,4 @@ torchvision
 streamlit
 pillow
 numpy
-
+datasets
