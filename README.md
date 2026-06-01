@@ -1,4 +1,4 @@
-# Breast Tumor Recognition Presentation Demo
+# Breast Tumor Recognition 
 
 This project is a course-ready breast ultrasound image recognition demo. It uses
 PyTorch transfer learning for a three-class BUSI task:
