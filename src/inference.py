@@ -21,7 +21,10 @@ def make_preprocess(image_size: int) -> transforms.Compose:
 
 
 def load_checkpoint_model(path: Path):
-    checkpoint = torch.load(path, map_location="cpu")
+    try:
+        checkpoint = torch.load(path, map_location="cpu", weights_only=True)
+    except TypeError:
+        checkpoint = torch.load(path, map_location="cpu")
     model = build_model(checkpoint["model_name"], num_classes=len(checkpoint["class_names"]), pretrained=False)
     model.load_state_dict(checkpoint["state_dict"])
     model.eval()
@@ -41,4 +44,3 @@ def predict_image(model, image: Image.Image, preprocess, device: torch.device):
     probs = torch.softmax(logits, dim=1).squeeze(0).detach().cpu().numpy()
     pred_idx = int(probs.argmax())
     return probs, pred_idx
-

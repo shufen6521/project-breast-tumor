@@ -4,3 +4,6 @@ streamlit
 pillow
 numpy
 datasets
+fastapi
+uvicorn[standard]
+python-multipart

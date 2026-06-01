@@ -103,6 +103,58 @@ Upload a breast ultrasound image. The app shows:
 - Grad-CAM heatmap
 - test-set metrics from the latest training run
 
+## 5. Run the FastAPI Backend
+
+The backend reuses the trained PyTorch checkpoint and exposes prediction APIs
+for a React frontend.
+
+```bash
+uvicorn backend.main:app --reload
+```
+
+API endpoints:
+
+- `GET /health`
+- `GET /metrics`
+- `POST /predict` with an uploaded image file named `file`
+
+Open the interactive API docs at:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+For GitHub, keep `models/best_model.pt` out of normal commits. Upload the
+checkpoint to a GitHub Release and document that users should place it at:
+
+```text
+models/best_model.pt
+```
+
+## 6. Run the React Frontend
+
+The React frontend is a medical imaging workstation for uploading ultrasound
+images, calling the FastAPI backend, and showing prediction probabilities plus
+Grad-CAM explanations.
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open:
+
+```text
+http://127.0.0.1:5173
+```
+
+If the backend runs on another address, create `frontend/.env.local`:
+
+```text
+VITE_API_BASE_URL=http://127.0.0.1:8000
+```
+
 ## Presentation Notes
 
 This project is for AI/ML coursework and demonstration only. It is not a
